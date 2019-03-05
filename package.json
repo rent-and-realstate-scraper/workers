@@ -1,0 +1,37 @@
+{
+  "name": "puppeteer-datascraper-airbnb-fotocasa",
+  "version": "1.0.0",
+  "description": "puppeteer-datascraper-airbnb-fotocasa",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HugoJBello/puppeteer-datascraper-airbnb-fotocasa.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HugoJBello/puppeteer-datascraper-airbnb-fotocasa/issues"
+  },
+  "homepage": "https://github.com/HugoJBello/puppeteer-datascraper-airbnb-fotocasa#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "chai": "^4.2.0",
+    "chai-almost": "^1.0.1",
+    "dotenv": "^6.1.0",
+    "jsonexport": "^2.4.1",
+    "mocha": "^5.2.0",
+    "modern-random-ua": "^1.0.3",
+    "mongodb": "^3.1.8",
+    "mysql": "^2.16.0",
+    "objects-to-csv": "^1.2.1",
+    "puppeteer": "^1.10.0",
+    "xml-js": "^1.6.8"
+  }
+}

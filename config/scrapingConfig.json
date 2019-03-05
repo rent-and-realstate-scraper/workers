@@ -1,0 +1,8 @@
+{
+    "sessionId": "scraping-fotocasa-raspberryOld--12_5_2018,_2_27_58_PM",
+    "appId": "airbnb",
+    "method": "cusec",
+    "deviceId": "raspberryOld",
+    "useSavedFeaturesInFile": true,
+    "urlBase": "http://localhost:3000"
+}
