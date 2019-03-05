@@ -26,6 +26,7 @@
     "chai-almost": "^1.0.1",
     "dotenv": "^6.1.0",
     "jsonexport": "^2.4.1",
+    "lodash": "^4.17.11",
     "mocha": "^5.2.0",
     "modern-random-ua": "^1.0.3",
     "mongodb": "^3.1.8",

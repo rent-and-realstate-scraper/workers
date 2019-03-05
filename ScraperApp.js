@@ -22,7 +22,7 @@ module.exports = class ScraperApp {
         const numPieces = await this.api.countIndexEntries(this.config.deviceId);
         if (!numPieces || numPieces === 0) {
             console.log("regenerating index");
-            await this.api.regenerateScrapingIndex();
+            await this.api.regenerateScrapingIndex(this.config.deviceId);
         }
         let nextPieceToScrap = await this.api.getNextPieceToScrap(this.config.deviceId);
         console.log(nextPieceToScrap);
