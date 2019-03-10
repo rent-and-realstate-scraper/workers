@@ -28,8 +28,13 @@ module.exports = class ScraperDataAccess {
         return axios.delete(url).then(response => response.data);
     }
 
-    async regenerateScrapingIndex(device_id) {
-        const url = `${this.urlBase}/api/workers/regenerate_scraping_index?device_id=${device_id}`;
+    async regenerateScrapingIndex(device_id, method = "boundingBox", cities) {
+        let url;
+        if(cities){
+            url = `${this.urlBase}/api/workers/regenerate_scraping_index?device_id=${device_id}&method=${method}&cities=${cities}`;
+        } else {
+            url = `${this.urlBase}/api/workers/regenerate_scraping_index?device_id=${device_id}&method=${method}`;
+        }
         return axios.delete(url).then(response => response.data);
     }
 
