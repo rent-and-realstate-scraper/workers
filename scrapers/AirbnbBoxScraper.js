@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const randomUA = require('modern-random-ua');
+const get = require("lodash").get;
 const fs = require('fs');
 
 module.exports = class AirbnbBoxScraper {
@@ -219,9 +220,6 @@ module.exports = class AirbnbBoxScraper {
 
 
         console.log("---------------------");
-        console.log(url);
-        console.log("\n");
-
 
         await this.initializePuppeteer();
         let result;
@@ -229,7 +227,7 @@ module.exports = class AirbnbBoxScraper {
             this.page.on('response', async  response => {
 
                 const url = await response.url();
-                if (url.indexOf("explore") > -1) {
+                if (url.indexOf("explore_tabs") > -1) {
                     console.log("-----");
                     console.log(url);
                     let averagePrize;
@@ -238,12 +236,13 @@ module.exports = class AirbnbBoxScraper {
                         const text = await response.text();
                         let responseJson = JSON.parse(text);
 
-                        numberOfAds = parseInt(responseJson["explore_tabs"][0]["home_tab_metadata"]["listings_count"]);
-                        averagePrize = responseJson["explore_tabs"][0]["home_tab_metadata"]["price_histogram"]["average_price"];
+                        numberOfAds = parseInt(get(responseJson, '["explore_tabs"][0]["home_tab_metadata"]["listings_count"]'));
+                        averagePrize = get(responseJson, '["explore_tabs"][0]["home_tab_metadata"]["price_histogram"]["average_price"]');
                         console.log(averagePrize);
 
+                        let listings;
                         if (numberOfAds && numberOfAds > 0) {
-                            const listings = responseJson["explore_tabs"][0]["sections"][2]["listings"]
+                            listings = get(responseJson, '["explore_tabs"][0]["sections"][1]["listings"]');
                         }
                         /*
                         const prizes = []
