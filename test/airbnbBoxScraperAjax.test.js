@@ -24,6 +24,7 @@ describe('App', function () {
             const resultAlquiler = await scraper.interceptAjaxCall(boundingBox);
             console.log(resultAlquiler);
             assert(resultAlquiler !== null);
+            assert((resultAlquiler.numberOfAds !== undefined) && (resultAlquiler.numberOfAds !==0));
         });
 
 
