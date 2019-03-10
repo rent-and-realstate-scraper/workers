@@ -8,6 +8,9 @@ yarn-error.log*
 scrapingConfig.json
 config/scrapingConfig.json
 
+cities.json
+config/cites.json
+
 # Runtime data
 pids
 *.pid
