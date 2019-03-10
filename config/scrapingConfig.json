@@ -1,1 +1,2 @@
-{"sessionId":"scraping-airbnb-raspberryOld--3_10_2019,_11_13_12_AM","appId":"airbnb","method":"cusec","deviceId":"raspberryOld","useSavedFeaturesInFile":true,"urlBase":"http://localhost:3000"}
+{"sessionId":"scraping-airbnb-raspberryOld--3_9_2019,_7_44_06_PM","appId":"airbnb","method":"boundingBox","deviceId":"raspberryOld",
+"useSavedFeaturesInFile":true,"urlBase":"https://hbello.info"}
