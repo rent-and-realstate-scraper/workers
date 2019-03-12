@@ -42,13 +42,13 @@ module.exports = class FocotasaBoxScraper extends PuppeteerScraper {
 
     getPolylineEncoded(boundingBox){
         const bbox = [boundingBox[1][0], boundingBox[1][1], boundingBox[0][0], boundingBox[0][1]];
-        const coordinates = [[[[bbox[0], bbox[3]], [bbox[2], bbox[3]], [bbox[2], bbox[1]], [bbox[0], bbox[1]], [bbox[0], bbox[3]]]]]
+        const coordinates = [[[bbox[0], bbox[3]], [bbox[2], bbox[3]], [bbox[2], bbox[1]], [bbox[0], bbox[1]], [bbox[0], bbox[3]]]]
         const geojson = {type:"Multipolygon" , coordinates}
 
         const polylineEncoded = encode(geojson)["coordinates"];
         const polylineEncodedPreURL = "((" + polylineEncoded + "))";
         const urlEncoded = encodeURIComponent(polylineEncodedPreURL)
-        console.log(polylineEncodedPreURL);
+        console.log(urlEncoded);
         return urlEncoded;
     }
 
