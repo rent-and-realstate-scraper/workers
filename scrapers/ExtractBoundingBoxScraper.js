@@ -1,18 +1,12 @@
 const puppeteer = require('puppeteer');
 const randomUA = require('modern-random-ua');
+const PuppeteerScraper = require('PuppeteerScraper');
 
 
-module.exports = class FocotasaBoxScraper {
-    constructor() {
-        this.browser = null;
-        this.page = null;
-
-        this.timeWaitStart = 1 * 1000;
-        this.timeWaitClick = 500;
-        require('dotenv').load();
-
+module.exports = class FocotasaBoxScraper extends PuppeteerScraper {
+    constructor(configPath= "../config/scrapingConfig.json") {
+        super(configPath);
     }
-
     async extractBoundingBoxFromCityName(cityname) {
 
         const url = 'http://www.mapdevelopers.com/geocode_bounding_box.php';
@@ -50,24 +44,5 @@ module.exports = class FocotasaBoxScraper {
         return [boundingBox2, boundingBox1];
 
     }
-
-    async initializePuppeteer() {
-        if (process.env['RASPBERRY_MODE']) {
-            this.browser = await puppeteer.launch({
-                executablePath: '/usr/bin/chromium-browser',
-                userAgent: randomUA.generate(),
-                headless: true,
-                args: ['--no-sandbox', '--disable-setuid-sandbox']
-            });
-        } else {
-            this.browser = await puppeteer.launch({
-                userAgent: randomUA.generate(),
-                headless: true,
-                args: ['--no-sandbox']
-            });
-        }
-        this.page = await this.browser.newPage();
-    }
-
 
 }

@@ -2,19 +2,16 @@ const puppeteer = require('puppeteer');
 const randomUA = require('modern-random-ua');
 const get = require("lodash").get;
 const fs = require('fs');
+const PuppeteerScraper = require('./PuppeteerScraper');
 
-module.exports = class AirbnbBoxScraper {
-    constructor() {
+module.exports = class AirbnbBoxScraper extends PuppeteerScraper {
+    constructor(configPath= "../config/scrapingConfig.json") {
+        super(configPath);
         this.timeWaitStart = 3 * 1000;
         this.timeWaitClick = 1 * 1000;
+        this.config = require(configPath);
         this.retries = 5;
-
-        this.browser = null;
-        this.page = null;
-        require('dotenv').load();
-
     }
-
 
     async extractDataFromBox(boundingBox) {
         //https://www.airbnb.es/s/madrid/homes?refinement_paths%5B%5D=%2Fhomes&query=madrid&click_referer=t%3ASEE_ALL%7Csid%3Aa7d1f39d-6aca-46ed-978b-e7866130e117%7Cst%3AMAGAZINE_HOMES&allow_override%5B%5D=&map_toggle=true&zoom=18&search_by_map=true&sw_lat=40.41092513867345&sw_lng=-3.703897645186509&ne_lat=40.41257982118033&ne_lng=-3.700771836660386&s_tag=gSIPGig_"];
@@ -74,23 +71,6 @@ module.exports = class AirbnbBoxScraper {
         }
     }
 
-    async initializePuppeteer() {
-        if (process.env['RASPBERRY_MODE']) {
-            this.browser = await puppeteer.launch({
-                executablePath: '/usr/bin/chromium-browser',
-                userAgent: randomUA.generate(),
-                headless: true,
-                args: ['--no-sandbox', '--disable-setuid-sandbox']
-            });
-        } else {
-            this.browser = await puppeteer.launch({
-                userAgent: randomUA.generate(),
-                headless: true,
-                args: ['--no-sandbox']
-            });
-        }
-        this.page = await this.browser.newPage();
-    }
 
     async anyResultsFound() {
         let title = await this.titleNumEntriesLess300();
