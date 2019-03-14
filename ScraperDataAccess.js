@@ -28,14 +28,11 @@ module.exports = class ScraperDataAccess {
         return axios.delete(url).then(response => response.data);
     }
 
-    async regenerateScrapingIndex(device_id, method = "boundingBox", cities) {
-        let url;
-        if(cities){
-            url = `${this.urlBase}/api/workers/regenerate_scraping_index?device_id=${device_id}&method=${method}&cities=${cities}`;
-        } else {
-            url = `${this.urlBase}/api/workers/regenerate_scraping_index?device_id=${device_id}&method=${method}`;
-        }
-        return axios.delete(url).then(response => response.data);
+    async regenerateScrapingIndex(device_id, method = "boundingBox", cities, appId="airbnb") {
+        const device = {device_id, method, cities, app_id:appId}
+        console.log(device);
+        const url = `${this.urlBase}/api/workers/regenerate_scraping_index`;
+        return axios.post(url, device).then(response => response.data);
     }
 
     async getNextPieceToScrap(device_id) {

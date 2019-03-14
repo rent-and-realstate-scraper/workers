@@ -12,7 +12,7 @@ module.exports = class ScraperApp {
         this.config = require(this.configPath);
 
         this.citiesPath = "./config/cities.json";
-        this.cities = require(this.citiesPath).cities.join(";");
+        this.cities = require(this.citiesPath).cities;
 
         if (this.config.appId === "fotocasa") {
             this.scraper = new FotocasaBoxScraper();
@@ -26,7 +26,7 @@ module.exports = class ScraperApp {
         if (!numPieces || numPieces === 0) {
             console.log("regenerating index");
             const cities = this.cities;
-            await this.api.regenerateScrapingIndex(this.config.deviceId, this.config.method, cities);
+            await this.api.regenerateScrapingIndex(this.config.deviceId, this.config.method, cities, this.config.appId);
         }
         let nextPieceToScrap = await this.api.getNextPieceToScrap(this.config.deviceId);
         console.log(nextPieceToScrap);
