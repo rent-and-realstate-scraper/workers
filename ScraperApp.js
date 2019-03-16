@@ -14,6 +14,8 @@ module.exports = class ScraperApp {
         this.citiesPath = "./config/cities.json";
         this.cities = require(this.citiesPath).cities;
 
+        this.somethingWasScraped = false;
+
         if (this.config.appId === "fotocasa") {
             this.scraper = new FotocasaBoxScraper();
         } else {
@@ -48,10 +50,17 @@ module.exports = class ScraperApp {
             await this.saveActivityInLog(nextPieceToScrap);
             await this.changePieceToScraped(nextPieceToScrap);
             nextPieceToScrap = await this.api.getNextPieceToScrap(this.config.deviceId);
+            this.somethingWasScraped = true;
         }
-        this.updateSessionIdInConfig();
-        await this.api.setIndexAsNotScraped(this.config.deviceId);
 
+        if (this.somethingWasScraped) {
+            console.log("changing session id");
+            this.updateSessionIdInConfig();
+            console.log("setting all pieces as not scraped");
+            await this.api.setIndexAsNotScraped(this.config.deviceId);
+        } else {
+            console.log("nothing was scraped, exiting session");
+        }
     }
 
     async saveData(nextPieceToScrap, dataBuy, dataRent) {
