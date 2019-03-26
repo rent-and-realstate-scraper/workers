@@ -109,7 +109,7 @@ module.exports = class FocotasaBoxScraper extends PuppeteerScraper {
                     const content = await this.page.evaluate(el => el.innerHTML, div);
 
                     const auxPrize = content.split("€")[0]
-                    const prize = auxPrize.split("<span>")[auxPrize.split("<span>").length - 1].trim().replace(".", "");
+                    const prize = auxPrize.split('<span class=\"re-Card-price\">')[1].trim().replace(".", "");
 
                     const auxMeters = content.split("m²")[0]
                     const meters = auxMeters.split('<span class="re-Card-feature">')[auxMeters.split('<span class="re-Card-feature">').length - 1].trim();

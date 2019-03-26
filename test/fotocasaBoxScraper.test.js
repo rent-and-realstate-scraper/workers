@@ -24,6 +24,8 @@ describe('App', function () {
             const resultAlquiler = await scraper.extractDataFromBox(boundingBox, centerPoint);
             console.log(resultAlquiler);
             assert(resultAlquiler !== null);
+            assert(resultAlquiler.averagePrize !== 0);
+            assert(resultAlquiler.numberOfAds !== 0);
         });
 
 
