@@ -104,7 +104,7 @@ module.exports = class ScraperApp {
 
     async changePieceToScraped(nextPieceToScrap) {
         console.log("changing piece " + nextPieceToScrap.piece_id + " in index to set it as scraped");
-        const result = await this.api.setIndexPieceAsScraped(nextPieceToScrap.piece_id);
+        await this.api.setIndexPieceAsScraped(nextPieceToScrap.piece_id);
     }
 
 } 

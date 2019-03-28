@@ -26,12 +26,8 @@ module.exports = class FocotasaBoxScraper extends PuppeteerScraper {
             await this.page.goto(url);
             await this.page.waitFor(this.timeWaitStart);
             
-            let results = {}
             let adData;
             if (await this.anyResultsFound()) {
-                let numberOfEntries;
-                //numberOfEntries = await this.extractNumberOfEntries();
-
                 adData = [];
                 let isNextPage = true;
                 let pageNum = 1;
@@ -95,16 +91,6 @@ module.exports = class FocotasaBoxScraper extends PuppeteerScraper {
             const divs = await this.page.$$('div.sui-CardComposable-secondary');
             for (const div of divs) {
 
-                /*
-                let divCopy = Object.create(div);
-                const spanMeters = await divCopy.$$('span.re-Card-wrapperFeatures')
-                let meters = await (await spanMeters[1].getProperty('textContent')).jsonValue();
-                meters = meters.replace("m²", "").trim();
- 
-                const spanPrize = await div.$('span.re-Card-price>span')
-                let prize = await (await spanPrize.getProperty('textContent')).jsonValue();
-                prize = prize.replace("€", "").trim();
-                */
                 try {
                     const content = await this.page.evaluate(el => el.innerHTML, div);
 
@@ -121,7 +107,6 @@ module.exports = class FocotasaBoxScraper extends PuppeteerScraper {
                     data.push(newAdInfo);
                 } catch (err) {
                     console.log("error obtaining prize and meters");
-                    //console.log(err);
                 }
 
             }
@@ -147,11 +132,6 @@ module.exports = class FocotasaBoxScraper extends PuppeteerScraper {
         }
 
         return sum / (adData.length - errorCount);
-    }
-
-    async saveHtml() {
-        let bodyHTML = await this.page.evaluate(() => document.body.innerHTML);
-        fs.writeFileSync("./data/htmPage.html", bodyHTML);
     }
 
     async anyResultsFound() {
